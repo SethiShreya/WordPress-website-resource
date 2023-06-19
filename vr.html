@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    // Include the necessary Babylon.js library
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+
+<script>
+    // Initialize the Babylon.js engine
+var canvas = document.getElementById("renderCanvas");
+var engine = new BABYLON.Engine(canvas, true);
+
+// Create a scene
+var createScene = function () {
+  var scene = new BABYLON.Scene(engine);
+
+  // Create a VR helper to enable VR rendering
+  var vrHelper = scene.createDefaultVRExperience();
+
+  // Load the 3D model
+  BABYLON.SceneLoader.ImportMesh("", "path/to/your/model/", "model.gltf", scene, function (meshes) {
+    // Adjust the position and scaling of the model
+    var model = meshes[0];
+    model.position = new BABYLON.Vector3(0, 0, 0);
+    model.scaling = new BABYLON.Vector3(1, 1, 1);
+  });
+
+  return scene;
+};
+
+// Create the scene
+var scene = createScene();
+
+// Run the render loop
+engine.runRenderLoop(function () {
+  scene.render();
+});
+
+// Handle window resize
+window.addEventListener("resize", function () {
+  engine.resize();
+});
+
+</script>
+</body>
+</html>
