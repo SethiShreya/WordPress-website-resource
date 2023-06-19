@@ -1,51 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    // Include the necessary Babylon.js library
-<script src="https://cdn.babylonjs.com/babylon.js"></script>
-<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
-
-<script>
-    // Initialize the Babylon.js engine
-var canvas = document.getElementById("renderCanvas");
-var engine = new BABYLON.Engine(canvas, true);
-
-// Create a scene
-var createScene = function () {
-  var scene = new BABYLON.Scene(engine);
-
-  // Create a VR helper to enable VR rendering
-  var vrHelper = scene.createDefaultVRExperience();
-
-  // Load the 3D model
-  BABYLON.SceneLoader.ImportMesh("", "path/to/your/model/", "model.gltf", scene, function (meshes) {
-    // Adjust the position and scaling of the model
-    var model = meshes[0];
-    model.position = new BABYLON.Vector3(0, 0, 0);
-    model.scaling = new BABYLON.Vector3(1, 1, 1);
-  });
-
-  return scene;
-};
-
-// Create the scene
-var scene = createScene();
-
-// Run the render loop
-engine.runRenderLoop(function () {
-  scene.render();
-});
-
-// Handle window resize
-window.addEventListener("resize", function () {
-  engine.resize();
-});
-
-</script>
-</body>
+<html>
+  <head>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script type="text/javascript">
+      let canvas; 
+      let engine; 
+      let scene; 
+      window.onload = function() {
+        canvas = document.getElementById("renderCanvas");
+        engine = new BABYLON.Engine(canvas, true);    
+        createScene();  
+        addObjects();   
+        initializeXR();
+        engine.runRenderLoop(function () {
+          if (scene && scene.activeCamera) {
+            scene.render();
+          }
+        });        
+      }
+      function createScene() {
+        scene = new BABYLON.Scene(engine);
+        scene.clearColor = new BABYLON.Color3.Black();
+        let light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, -0.5),scene);
+        let camera = new BABYLON.ArcRotateCamera("camera", -Math.PI/2,Math.PI/2, 3, new BABYLON.Vector3(0, 0, 0));
+        camera.attachControl(canvas, true);        
+      }
+      async function initializeXR(){
+        let xr = await scene.createDefaultXRExperienceAsync({});  
+        if (!xr.baseExperience) {}
+        else {
+          xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+            xrInput: xr.input
+          });
+        }        
+      }
+      function addObjects(){    
+        BABYLON.SceneLoader.ImportMesh(
+          "",
+          "./",
+          "Statue_clean.glb",
+          scene,
+          function (meshes) {
+            var model = meshes[0];
+            model.position = new BABYLON.Vector3(0, 0, 0);
+            model.scaling = new BABYLON.Vector3(1, 1, 1);
+          }
+        );
+      }  
+    </script>
+  </head>
+  <body>
+    <canvas id="renderCanvas" style="width: 100%; height: 100%;"></canvas> 
+  </body>
 </html>
