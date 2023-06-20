@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>A-Frame Animation Example</title>
+        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    </head>
+    <body>
+        <a-scene>
+            <a-entity
+                id="modelEntity"
+                gltf-model="url(https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/robot/robot_playground.glb)"
+                scale="0.15 0.15 0.15"
+                position="0 1.5 -1"
+                visible="true"
+            ></a-entity>
+        </a-scene>
+
+        <script>
+            // Wait for the scene to load
+            document.querySelector("a-scene").addEventListener("loaded", function () {
+                // Get the model entity
+                var modelEntity = document.getElementById("modelEntity");
+
+                // Get the animations from the model's animation component
+                var animations = modelEntity.components["glb-model"].model.animations;
+
+                // Check if the model has any animations
+                if (animations.length > 0) {
+                    // Create an Animation Mixer
+                    var mixer = new THREE.AnimationMixer(modelEntity.object3D);
+
+                    // Load the first animation
+                    var clip = animations[0];
+                    var action = mixer.clipAction(clip);
+
+                    // Play the animation
+                    action.play();
+
+                    // Update the animation mixer on every frame
+                    modelEntity.addEventListener("animation-frame", function () {
+                        mixer.update(1 / 60); // Assuming 60 FPS
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
