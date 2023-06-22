@@ -1,46 +1,38 @@
 <html>
+
     <head>
-        <title>A-Frame Animation Example</title>
-        <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+        <title>A-Frame Starter Kit - Mini Planetarium</title>
+        <meta name="description" content="Build your own planetarium with A-frame">
+
+        <!-- This turns our HTML into A-Frame! -->
+        <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     </head>
+
     <body>
+        <!-- a-scene contains all our A-Frame HTML -->
         <a-scene>
-            <a-entity
+
+            <a-sky color="midnightblue"></a-sky>
+                
+                <!-- <a-entity
                 id="modelEntity"
-                gltf-model="url(https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/robot/robot_playground.glb)"
+                gltf-model="https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/robot/robot_playground.glb"
                 scale="0.15 0.15 0.15"
                 position="0 1.5 -1"
                 visible="true"
-            ></a-entity>
+              ></a-entity>             -->
+
+              <a-asset-item id="triceratops"
+      src="https://cdn.aframe.io/examples/ar/models/triceratops/scene.gltf"
+      response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         </a-scene>
-
-        <script>
-            // Wait for the scene to load
-            document.querySelector("a-scene").addEventListener("loaded", function () {
-                // Get the model entity
-                var modelEntity = document.getElementById("modelEntity");
-
-                // Get the animations from the model's animation component
-                var animations = modelEntity.components["glb-model"].model.animations;
-
-                // Check if the model has any animations
-                if (animations.length > 0) {
-                    // Create an Animation Mixer
-                    var mixer = new THREE.AnimationMixer(modelEntity.object3D);
-
-                    // Load the first animation
-                    var clip = animations[0];
-                    var action = mixer.clipAction(clip);
-
-                    // Play the animation
-                    action.play();
-
-                    // Update the animation mixer on every frame
-                    modelEntity.addEventListener("animation-frame", function () {
-                        mixer.update(1 / 60); // Assuming 60 FPS
-                    });
-                }
-            });
-        </script>
+        
+        <!-- include the Glitch button to show what the webpage is about and to
+        make it easier for folks to view source and remix -->
+        <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+        <script src="https://button.glitch.me/button.js"></script>
     </body>
+
 </html>
+
+
