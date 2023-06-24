@@ -122,5 +122,5 @@ class VRButton {
   VRButton.xrSessionIsGranted = false;
   VRButton.registerSessionGrantedListener();
   
-  export { VRButton };
+
   

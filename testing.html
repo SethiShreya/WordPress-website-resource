@@ -44,6 +44,7 @@
   </head>
   <body>
   
+  
 
     <div id="container">
         <button id="VRButton"></button>
@@ -51,14 +52,17 @@
     
     <script src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
       ></script>
+      <!-- <script src="https://cdn.jsdelivr.net/gh/SethiShreya/WordPress-website-resource/VRButton.js">
 
-      
+      </script> -->
+
+      <script src="./VRButton.js"></script>
 
       <script type="module">
         import * as THREE from 'three';
         // import Stats from 'three/addons/libs/stats.module.js';
-        // import { VRButton } from "https://cdn.jsdelivr.net/gh/SethiShreya/WordPress-website-resource/VRButton.js";
-        import { VRButton } from "./VRButton.js";
+        
+        // import { VRButton } from "./VRButton.js";
 
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -75,6 +79,8 @@
         // container.appendChild( stats.dom );
 
         const renderer = new THREE.WebGLRenderer( { antialias: true } );
+        VRButton.createButton( renderer, "VRButton","container" );
+        renderer.xr.enabled = true;
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( window.innerWidth, window.innerHeight );
         container.appendChild( renderer.domElement );
@@ -92,8 +98,7 @@
         const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
         camera.position.set( 5, 2, 8 );
 
-        VRButton.createButton( renderer, "VRButton","container" );
-        renderer.xr.enabled = true;
+        
 
         const controls = new OrbitControls( camera, renderer.domElement );
         controls.target.set( 0, 0.5, 0 );
