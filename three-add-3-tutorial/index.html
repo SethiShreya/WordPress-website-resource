@@ -4,13 +4,152 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./style.css" />
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: sans-serif;
+          overflow: hidden;
+          background: url("https://wallpaperaccess.com/full/1155041.jpg");
+        }
+
+      #scene,
+      canvas {
+        position: relative;
+        width: 100%;
+        height: 600px;
+      }
+
+    </style>
+    
     <title>Document</title>
   </head>
   <body>
-    <div class="scene"></div>
-    <script src="./three.min.js"></script>
-    <script src="./GLTFLoader.js"></script>
-    <script src="./app.js"></script>
+    <div id="scene"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.85.0/examples/js/controls/OrbitControls.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.150.1/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module">
+        import { VRButton } from 'three/addons/webxr/VRButton.js';  
+
+        import Stats from 'three/addons/libs/stats.module.js';
+
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+        let container;
+        let camera;
+        let renderer;
+        let scene;
+        let house;
+        let mixer;
+        const clock = new THREE.Clock();
+
+        container = document.getElementById("scene");
+
+        const stats = new Stats();
+        container.appendChild( stats.dom );
+
+        renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+
+        const controls = new OrbitControls( camera, renderer.domElement );
+        controls.target.set( 0, 0.5, 0 );
+        controls.update();
+        controls.enablePan = false;
+        controls.enableDamping = true;
+
+
+        function init() {
+
+          //Create scene
+          scene = new THREE.Scene();
+
+          const fov = 35;
+          const aspect = container.clientWidth / container.clientHeight;
+          const near = 0.1;
+          const far = 1000;
+
+          //Camera setup
+          camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+          camera.position.set(0, 5, 30);
+
+          const ambient = new THREE.AmbientLight(0x404040, 2);
+          scene.add(ambient);
+
+          const light = new THREE.DirectionalLight(0xffffff, 2);
+          light.position.set(50, 50, 100);
+          scene.add(light);
+          document.body.appendChild( VRButton.createButton( renderer ) );
+          //Renderer
+          renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+          renderer.setSize(container.clientWidth, container.clientHeight);
+          renderer.setPixelRatio(window.devicePixelRatio);
+
+          container.appendChild(renderer.domElement);
+
+          //Load Model
+          let loader = new THREE.GLTFLoader();
+          loader.load("https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/robot/robot_playground.glb", function(gltf) {
+            console.log("model loading start");
+            console.log(gltf);
+            var model= gltf.scene;
+            scene.add(model);
+            console.log("model added "+model);
+            mixer = new THREE.AnimationMixer( model );
+            console.log("animation mixer made "+mixer);
+            mixer.clipAction( gltf.animations[0] ).play();
+            console.log("mixer played");
+
+            animate();
+          }, function(xhr){
+            console.log((xhr.loaded/xhr.total *100)+"% loaded ");
+          }, function(error){
+            console.log("Error happened");
+          }
+          );
+        }
+
+        function update () {
+	        mixer.update( deltaSeconds );
+        }
+
+
+        function animate() {
+
+            requestAnimationFrame( animate );
+            const delta = clock.getDelta();
+            mixer.update( delta );
+            controls.update();
+            stats.update();
+            renderer.render( scene, camera );
+
+        }
+        init();
+
+        function onWindowResize() {
+          camera.aspect = container.clientWidth / container.clientHeight;
+          camera.updateProjectionMatrix();
+
+          renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        window.addEventListener("resize", onWindowResize);
+
+    </script>
   </body>
 </html>
