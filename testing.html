@@ -87,12 +87,12 @@
 
         
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0x000000 );
+        scene.background = new THREE.Color( 0x02b4ff );
         const ambient = new THREE.AmbientLight(0x404040, 2);
           scene.add(ambient);
 
           const light = new THREE.DirectionalLight(0xffffff, 1);
-          light.position.set(50, 50, 100);
+          light.position.set(50, 100, 100);
           scene.add(light);
 
         const camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 100 );
@@ -101,7 +101,6 @@
         
 
         const controls = new OrbitControls( camera, renderer.domElement );
-        controls.target.set( 0.1, 0, 0 );
         controls.update();
         controls.enablePan = false;
         controls.enableDamping = true;
@@ -111,15 +110,16 @@
 
         const loader = new GLTFLoader();
         loader.setDRACOLoader( dracoLoader );
-        loader.load( '.\\island.glb', function ( gltf ) {
+        loader.load( 'https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/island.glb', function ( gltf ) {
+          console.log(gltf);
           const model = gltf.scene;
-          model.position.set( 15, 0, 0 );
-          model.scale.set( 0.01, 0.01, 0.01 );
+          model.position.set( 3, -2, 0 );
+          model.scale.set( 0.5, 0.5, 0.5 );
           scene.add( model );
 
           // mixer = new THREE.AnimationMixer( model );
           // mixer.clipAction( gltf.animations[ 0 ] ).play();
-          // animate();
+           animate();
 
         }, undefined, function ( e ) {
 
