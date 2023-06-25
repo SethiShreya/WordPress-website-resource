@@ -1,0 +1,142 @@
+newmtl default
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/island_mtl3_diffcol.jpg
+
+newmtl default_castle_roofs
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/island_mtl11_diffcol.jpg
+
+newmtl default_castle_doors
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/island_mtl5_diffcol.jpg
+
+newmtl material_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/terrace_mtl1_diffcol.jpg
+
+newmtl material_2
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Ka /Maps/terrace_mtl2_ambicol.jpg
+map_Kd /Maps/island_mtl1_ambicol.jpg
+map_Bump /Maps/terrace_mtl2_bumpamt.jpg
+
+newmtl material_3
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/terrace_mtl3_diffcol.jpg
+
+newmtl material_4
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/terrace_mtl4_diffcol.jpg
+
+newmtl default_castle_floors
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/castle floors_mtl3_diffcol.jpg
+
+newmtl default_castle_windows
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/island_mtl7_diffcol.jpg
+
+newmtl default_trunks
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/pt1.jpg
+
+newmtl default_leaves
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/tra1.jpg
+
+newmtl default_stones
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/is2.jpg
+
+newmtl material_1_island1
+d 1
+Ns 0.75
+Ni 0
+Ka 0 0 0
+Kd 0.34902 0.34902 0.258824
+Ks 0 0 0
+Km 0
+map_Kd /Maps/mountain_mtl1_diffcol.jpg
+
+newmtl default_island1
+d 1
+Ns 0.75
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/island_mtl1_ambicol_01.jpg
+
