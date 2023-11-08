@@ -7,22 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="card">
-        <model-viewer src="https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/robot/scene.gltf"
-                      ios-src="server.usdc"
-                      poster="https://raw.githubusercontent.com/lightlessdays/web-ar/main/loading_screen.gif"
-                      alt="A 3D model"
-                      shadow-intensity="1"
-                      camera-controls
-                      auto-rotate ar>
-        </model-viewer>
-        <section class="attribution">
-          <span>
-            <h1>Web AR Viewer</h1>
-        </section>
-      </div>
-      <script type="module"
-          src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-      </script>
+    
+<div id="model-card">
+    <model-viewer src="https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/mandir.glb"
+   
+   ios-src="https://raw.githubusercontent.com/SethiShreya/WordPress-website-resource/main/mandir.usdc"
+   autoplay
+   touch-action="pan-y"
+   
+   alt="A 3D model"
+   shadow-intensity="1"
+   scale="2 2 2"
+   camera-controls
+   ar 
+   auto-rotate
+   exposure="0.8"
+   
+   environment-image="shared-assets/environments/moon_1k.hdr">
+   
+   
+   </model-viewer>
+   
+      
+     </div>
+   
+     <script type="module"
+         src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+     </script>
 </body>
 </html>
